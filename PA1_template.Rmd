@@ -143,9 +143,11 @@ names(processedActivityDataByIntervalDateType) <- c("interval","dateType","steps
 
 ```{r}
 # Make a panel plot to represent average steps per day for weekday vs. weekend 
-library(lattice)
-xyplot(steps ~ interval|dateType, data = processedActivityDataByIntervalDateType,
-       type = "l", layout=c(1, 2),
-       main = "Average Number of Steps by Interval",
-       xlab = "Interval", ylab = "Average Number of Steps")
+ggplot(processedActivityDataByIntervalDateType, aes(x = interval, y = steps)) + 
+  geom_line(color = "blue") + 
+  labs(title = "Average Number of Steps by Interval", x = "Interval", y = "Number of Steps") +
+  facet_wrap( ~dateType, ncol=1) +
+  theme_bw() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        strip.background = element_rect(fill="pink"))
 ```
